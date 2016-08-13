@@ -33,7 +33,8 @@ var vm = new Vue({
   },
   created() {
     app.authenticate().then(() => {
-      this.user.authenticated = true
+      this.user.authenticated = true;
+      // console.log(app.get('user')._id);
     })
     // On errors we just redirect back to the login page
     .catch(error => {
@@ -108,6 +109,10 @@ Vue.component('message-list', {
       this.newMessage = ''
       this.scrollToBottom()
 
+      // console.log(this.user,message);
+
+      if(message.sentBy._id==app.get('user')._id)
+        return;
 
       if (Notification.permission !== "granted")
         Notification.requestPermission();
